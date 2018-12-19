@@ -19,6 +19,7 @@ public class Application {
     @EventMapping
     public Message handleTextMessage(MessageEvent<TextMessageContent> e) {
         System.out.println("event: " + e);
+        System.out.println("asdasdasdasd" + e);
         TextMessageContent message = e.getMessage();
         return new TextMessage(message.getText());
     }
