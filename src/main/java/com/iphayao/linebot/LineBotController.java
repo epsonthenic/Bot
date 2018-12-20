@@ -160,7 +160,7 @@ public class LineBotController {
                                         new TextMessage("อากาศวันนี้เย็นสบาย")
                                 ));
                             });
-                    T == false
+                    T == false;
                 }else if(T == false){
                     if (userId != null) {
                         this.reply(replyToken, Arrays.asList(
