@@ -165,7 +165,7 @@ public class LineBotController {
                         String pattern1 = "(.*)(@END)(.*)";
                         Pattern r1 = Pattern.compile(pattern1);
                         Matcher m1 = r1.matcher(text);
-                        if (m1.group(3) == "@END") {
+                        if (m1.group(2) == "@END") {
                             switch (m.group(1)) {     // เมื่อมีคีเวริดร์ว่า Profile ให้แสดงตามนี้
                                 case "@END": {
                                     if (userId != null) {
