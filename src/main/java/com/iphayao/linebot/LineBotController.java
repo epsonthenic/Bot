@@ -143,10 +143,12 @@ public class LineBotController {
 
     private void handleTextContent(String replyToken, Event event, TextMessageContent content) {
         String text = content.getText();
+        String text1 = content.getText();
+        boolean T = true;
         switch (text) {     // เมื่อมีคีเวริดร์ว่า Profile ให้แสดงตามนี้
             case "@N;": {
                 String userId = event.getSource().getUserId();
-                if (userId != null) {
+                if (userId != null && T == true) {
                     lineMessagingClient.getProfile(userId)
                             .whenComplete((profile, throwable) -> {
                                 if (throwable != null) {
@@ -158,12 +160,18 @@ public class LineBotController {
                                         new TextMessage("อากาศวันนี้เย็นสบาย")
                                 ));
                             });
+                }else if(T == true){
+                    if (userId != null) {
+                        this.reply(replyToken, Arrays.asList(
+                                new TextMessage(".........")
+                        ));
+                    }
                 }
                 break;
             }
             case "@END": {
                 String userId = event.getSource().getUserId();
-                if (userId != null) {
+                if (userId != null && T == false) {
                     lineMessagingClient.getProfile(userId)
                             .whenComplete((profile, throwable) -> {
                                 if (throwable != null) {
@@ -175,6 +183,7 @@ public class LineBotController {
                                         new TextMessage("เลขยืนยัน E10420244")
                                 ));
                             });
+                    T = true;
                 }
                 break;
             }
