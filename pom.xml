@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.mysterious-inlet-43475</groupId>
-    <artifactId>Bot</artifactId>
+    <groupId>com.iphayao</groupId>
+    <artifactId>line-bot-spring-boot</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -26,12 +26,14 @@
             <artifactId>line-bot-spring-boot</artifactId>
             <version>1.20.0</version>
         </dependency>
+        <!-- ส่วนที่เพิ่มเข้ามา -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.0</version>
             <scope>provided</scope>
         </dependency>
+        <!-- ส่วนที่เพิ่มเข้ามา -->
     </dependencies>
 
     <build>
