@@ -149,6 +149,9 @@ public class LineBotController {
         if (m.find()) {
             switch (m.group(1)) {     // เมื่อมีคีเวริดร์ว่า Profile ให้แสดงตามนี้
                 case "@N;": {
+                    String patter = "(.*)(@END)(.*)";
+                    Pattern r1 = Pattern.compile(patter);
+                    Matcher m1 = r1.matcher(m.group(0));
                     String userId = event.getSource().getUserId();
                     if (userId != null) {
                         lineMessagingClient.getProfile(userId)
@@ -162,13 +165,11 @@ public class LineBotController {
                                             new TextMessage("อากาศวันนี้เย็นสบาย")
                                     ));
                                 });
-                        String pattern1 = "(.*)(@END)(.*)";
-                        Pattern r1 = Pattern.compile(pattern1);
-                        Matcher m1 = r1.matcher(text);
-                        if (m1.group(2) == "@END") {
-                            switch (m.group(1)) {     // เมื่อมีคีเวริดร์ว่า Profile ให้แสดงตามนี้
+                        if(m1.find()){
+                            switch (m1.group(2)){
                                 case "@END": {
-                                    if (userId != null) {
+                                    String userId1 = event.getSource().getUserId();
+                                    if (userId1 != null) {
                                         lineMessagingClient.getProfile(userId)
                                                 .whenComplete((profile, throwable) -> {
                                                     if (throwable != null) {
@@ -176,16 +177,17 @@ public class LineBotController {
                                                         return;
                                                     }
                                                     this.reply(replyToken, Arrays.asList(
-                                                            new TextMessage("ระบบได้ทำการเก็บข้อมูลแล้ว"),
-                                                            new TextMessage("เลขยืนยัน E10420244")
+                                                            new TextMessage("asdasdasd"),
+                                                            new TextMessage("asdasdad")
                                                     ));
                                                 });
                                     }
                                     break;
                                 }
-                                default:
                             }
+
                         }
+
                     }
                     break;
                 }
