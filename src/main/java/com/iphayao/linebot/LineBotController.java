@@ -144,8 +144,74 @@ public class LineBotController {
         String pattern = "(@N;)(.*)(@END)";
         Pattern r = Pattern.compile(pattern);
         Matcher m = r.matcher(text);
+        int con = 1;
         if(m.find()){
-            switch (m.group(1)) {     // เมื่อมีคีเวริดร์ว่า Profile ให้แสดงตามนี้
+            if(m.group(1)=="@N;" && con == 1){
+                String userId = event.getSource().getUserId();
+                if (userId != null) {
+                    lineMessagingClient.getProfile(userId)
+                            .whenComplete((profile, throwable) -> {
+                                if (throwable != null) {
+                                    this.replyText(replyToken, throwable.getMessage());
+                                    return;
+                                }
+                                this.reply(replyToken, Arrays.asList(
+                                        new TextMessage("สวัสดีคับคุณ : "),
+                                        new TextMessage("อากาศวันนี้เย็นสบาย")
+                                ));
+                            });
+                }
+                con = 2;
+
+            }
+            else if(m.group(3)=="@END" && con == 2){
+                String userId = event.getSource().getUserId();
+                if (userId != null) {
+                    lineMessagingClient.getProfile(userId)
+                            .whenComplete((profile, throwable) -> {
+                                if (throwable != null) {
+                                    this.replyText(replyToken, throwable.getMessage());
+                                    return;
+                                }
+                                this.reply(replyToken, Arrays.asList(
+                                        new TextMessage("ระบบได้ทำการเก็บข้อมูลแล้วสามารถดูความเคลื่อนไหวได้ที่ www."),
+                                        new TextMessage("เลขยืนยัน E10420244")
+                                ));
+                            });
+                }
+                con = 1;
+            }
+            else if (con == 2){
+                this.reply(replyToken, Arrays.asList(
+                        new TextMessage("...")
+                ));
+            }
+        }else {
+            String userId = event.getSource().getUserId();
+            if (userId != null) {
+                lineMessagingClient.getProfile(userId)
+                        .whenComplete((profile, throwable) -> {
+                            if (throwable != null) {
+                                this.replyText(replyToken, throwable.getMessage());
+                                return;
+                            }
+                            this.reply(replyToken, Arrays.asList(
+                                    new TextMessage("แจ้งปัญหากรุณาใส่ชื่อผู้รับผิดชอบ เช่น "),
+                                    new TextMessage("@N; แก้ไขเรื่อง")
+                            ));
+                        });
+            }
+        }
+            
+
+
+
+
+
+
+
+        /*if(m.find()){
+            switch (m.group()) {     // เมื่อมีคีเวริดร์ว่า Profile ให้แสดงตามนี้
                 case "@N;":{
                     String userId = event.getSource().getUserId();
                     if (userId != null) {
@@ -163,9 +229,6 @@ public class LineBotController {
                     }
                     break;
                 }
-                default:
-            }
-            switch (m.group(3)){
                 case "@END":{
                     String userId = event.getSource().getUserId();
                     if (userId != null) {
@@ -199,8 +262,8 @@ public class LineBotController {
                                     new TextMessage("@N; แก้ไขเรื่อง")
                             ));
                         });
-            }
-        }
+            }*/
+        //}
     }
 
     private void replyText(@NonNull String replyToken, @NonNull String message) {
