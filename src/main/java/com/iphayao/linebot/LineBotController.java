@@ -15,6 +15,8 @@ import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 
+import java.util.regex.*;
+
 import lombok.NonNull;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
@@ -125,8 +127,8 @@ public class LineBotController {
                 + "." + ext;
         Path tempFile = Application.downloadedContentDir.resolve(fileName);
         tempFile.toFile().deleteOnExit();
-        return new DownloadedContent(tempFile,createUri("/downloaded/" + tempFile.getFileName()));
-        }
+        return new DownloadedContent(tempFile, createUri("/downloaded/" + tempFile.getFileName()));
+    }
 
     private static String createUri(String path) {
         return ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -141,50 +143,72 @@ public class LineBotController {
 
     private void handleTextContent(String replyToken, Event event,
                                    TextMessageContent content) {
-        String text = content.getText();
 
-        switch (text) {     // เมื่อมีคีเวริดร์ว่า Profile ให้แสดงตามนี้
-            case "Profile": {
-                String userId = event.getSource().getUserId();
-                if (userId != null) {
-                    lineMessagingClient.getProfile(userId)
-                            .whenComplete((profile, throwable) -> {
-                                if (throwable != null) {
-                                    this.replyText(replyToken, throwable.getMessage());
-                                    return;
-                                }
-                                this.reply(replyToken, Arrays.asList(
-                                        new TextMessage("Display name: " +
-                                                profile.getDisplayName()),
-                                        new TextMessage("Status message: " +
-                                                profile.getStatusMessage()),
-                                        new TextMessage("User ID: " +
-                                                profile.getUserId())
-                                ));
-                            });
+        String text = content.getText();
+        String pattern = "(@N;)(.*)(.*)";
+        Pattern r = Pattern.compile(pattern);
+        Matcher m = r.matcher(text);
+        if (m.find()) {
+            switch (m.group(1)) {     // เมื่อมีคีเวริดร์ว่า Profile ให้แสดงตามนี้
+                case "Profile": {
+                    String userId = event.getSource().getUserId();
+                    if (userId != null) {
+                        lineMessagingClient.getProfile(userId)
+                                .whenComplete((profile, throwable) -> {
+                                    if (throwable != null) {
+                                        this.replyText(replyToken, throwable.getMessage());
+                                        return;
+                                    }
+                                    this.reply(replyToken, Arrays.asList(
+                                            new TextMessage("Display name: " +
+                                                    profile.getDisplayName()),
+                                            new TextMessage("Status message: " +
+                                                    profile.getStatusMessage()),
+                                            new TextMessage("User ID: " +
+                                                    profile.getUserId())
+                                    ));
+                                });
+                    }
+                    break;
                 }
-                break;
-            }
-            case "สวัสดี": {
-                String userId = event.getSource().getUserId();
-                if (userId != null) {
-                    lineMessagingClient.getProfile(userId)
-                            .whenComplete((profile, throwable) -> {
-                                if (throwable != null) {
-                                    this.replyText(replyToken, throwable.getMessage());
-                                    return;
-                                }
-                                this.reply(replyToken, Arrays.asList(
-                                        new TextMessage("สวัสดีคับคุณ : "),
-                                        new TextMessage("อากาศวันนี้เย็นสบาย")
-                                ));
-                            });
+
+                case "@N;": {
+                    String userId = event.getSource().getUserId();
+                    if (userId != null) {
+                        lineMessagingClient.getProfile(userId)
+                                .whenComplete((profile, throwable) -> {
+                                    if (throwable != null) {
+                                        this.replyText(replyToken, throwable.getMessage());
+                                        return;
+                                    }
+                                    this.reply(replyToken, Arrays.asList(
+                                            new TextMessage("สวัสดีคับ"),
+                                            new TextMessage("อันนี้เป็นการตอบรับอัตรโนมัติ"),
+                                            new TextMessage("กรุงณาพิมย์ปัญหาของท่านได้เลยเมื่อได้รับเรื่องแล้วจะแจ้งเลขเพื่อรับรองการแจ้งปัญหา")
+                                    ));
+                                });
+                    }
+                    break;
                 }
-                break;
+                default:
+                    log.info("Return echo message %s : %s", replyToken, text);
+                    this.replyText(replyToken, text);
             }
-            default:
-                log.info("Return echo message %s : %s", replyToken, text);
-                this.replyText(replyToken, text);
+        } else {
+            String userId = event.getSource().getUserId();
+            if (userId != null) {
+                lineMessagingClient.getProfile(userId)
+                        .whenComplete((profile, throwable) -> {
+                            if (throwable != null) {
+                                this.replyText(replyToken, throwable.getMessage());
+                                return;
+                            }
+                            this.reply(replyToken, Arrays.asList(
+                                    new TextMessage("กรุณาบอกชื่อบุคคลเช่น"),
+                                    new TextMessage("@N; แก้ไขเรื่อง")
+                            ));
+                        });
+            }
         }
     }
 

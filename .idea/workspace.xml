@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2abb89e6-7f37-41b3-b8cc-6777ec5f3437" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/iphayao/linebot/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/iphayao/linebot/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/iphayao/linebot/LineBotConfigure.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/iphayao/linebot/LineBotConfigure.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/iphayao/linebot/LineBotController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/iphayao/linebot/LineBotController.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -40,15 +38,14 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/iphayao/linebot/LineBotController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="477">
-              <caret line="178" column="31" selection-start-line="178" selection-start-column="31" selection-end-line="178" selection-end-column="31" />
+            <state relative-caret-position="-20">
+              <caret line="184" column="73" lean-forward="true" selection-start-line="184" selection-start-column="73" selection-end-line="184" selection-end-column="73" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#handleLocationMessage#0;class#LineBotController#0" />
                 <element signature="method#handleImageMessage#0;class#LineBotController#0" />
                 <element signature="method#system#0;class#LineBotController#0" />
                 <element signature="method#saveContent#0;class#LineBotController#0" />
-                <element signature="method#createTempFile#0;class#LineBotController#0" />
                 <element signature="method#createUri#0;class#LineBotController#0" />
                 <element signature="class#DownloadedContent#0;class#LineBotController#0" />
               </folding>
@@ -111,10 +108,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="441" />
-    <option name="y" value="31" />
-    <option name="width" value="731" />
-    <option name="height" value="544" />
+    <option name="x" value="56" />
+    <option name="y" value="32" />
+    <option name="width" value="857" />
+    <option name="height" value="516" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -170,7 +167,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545276465494" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545286675615" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -220,18 +217,18 @@
       <workItem from="1545230549707" duration="742000" />
       <workItem from="1545233203719" duration="3115000" />
       <workItem from="1545269737895" duration="1827000" />
-      <workItem from="1545271731801" duration="4619000" />
+      <workItem from="1545271731801" duration="10370000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10303000" />
+    <option name="totallyTimeSpent" value="16054000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="40" y="-11" width="1327" height="780" extended-state="6" />
+    <frame x="41" y="-4" width="1325" height="772" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25801408" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.033620015" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -307,15 +304,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/iphayao/linebot/LineBotController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="477">
-          <caret line="178" column="31" selection-start-line="178" selection-start-column="31" selection-end-line="178" selection-end-column="31" />
+        <state relative-caret-position="-20">
+          <caret line="184" column="73" lean-forward="true" selection-start-line="184" selection-start-column="73" selection-end-line="184" selection-end-column="73" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#handleLocationMessage#0;class#LineBotController#0" />
             <element signature="method#handleImageMessage#0;class#LineBotController#0" />
             <element signature="method#system#0;class#LineBotController#0" />
             <element signature="method#saveContent#0;class#LineBotController#0" />
-            <element signature="method#createTempFile#0;class#LineBotController#0" />
             <element signature="method#createUri#0;class#LineBotController#0" />
             <element signature="class#DownloadedContent#0;class#LineBotController#0" />
           </folding>
