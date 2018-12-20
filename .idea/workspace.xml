@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2abb89e6-7f37-41b3-b8cc-6777ec5f3437" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/iphayao/linebot/LineBotController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/iphayao/linebot/LineBotController.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -38,13 +39,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/iphayao/linebot/LineBotController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="593">
-              <caret line="183" column="37" lean-forward="true" selection-start-line="183" selection-start-column="37" selection-end-line="183" selection-end-column="37" />
+            <state relative-caret-position="413">
+              <caret line="186" column="13" selection-start-line="186" selection-start-column="13" selection-end-line="186" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#handleStickerMessage#0;class#LineBotController#0" />
                 <element signature="method#handleLocationMessage#0;class#LineBotController#0" />
-                <element signature="method#handleImageMessage#0;class#LineBotController#0" />
                 <element signature="method#system#0;class#LineBotController#0" />
                 <element signature="method#saveContent#0;class#LineBotController#0" />
                 <element signature="method#createUri#0;class#LineBotController#0" />
@@ -113,10 +113,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-341" />
-    <option name="y" value="74" />
+    <option name="x" value="611" />
+    <option name="y" value="24" />
     <option name="width" value="857" />
-    <option name="height" value="516" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -172,7 +172,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545290874434" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545292755652" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -222,12 +222,12 @@
       <workItem from="1545230549707" duration="742000" />
       <workItem from="1545233203719" duration="3115000" />
       <workItem from="1545269737895" duration="1827000" />
-      <workItem from="1545271731801" duration="15244000" />
+      <workItem from="1545271731801" duration="16721000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20928000" />
+    <option name="totallyTimeSpent" value="22405000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="41" y="-4" width="1325" height="772" extended-state="6" />
@@ -309,13 +309,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/iphayao/linebot/LineBotController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="593">
-          <caret line="183" column="37" lean-forward="true" selection-start-line="183" selection-start-column="37" selection-end-line="183" selection-end-column="37" />
+        <state relative-caret-position="413">
+          <caret line="186" column="13" selection-start-line="186" selection-start-column="13" selection-end-line="186" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#handleStickerMessage#0;class#LineBotController#0" />
             <element signature="method#handleLocationMessage#0;class#LineBotController#0" />
-            <element signature="method#handleImageMessage#0;class#LineBotController#0" />
             <element signature="method#system#0;class#LineBotController#0" />
             <element signature="method#saveContent#0;class#LineBotController#0" />
             <element signature="method#createUri#0;class#LineBotController#0" />
