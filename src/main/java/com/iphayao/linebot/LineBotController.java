@@ -14,7 +14,9 @@ import com.linecorp.bot.model.message.*;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
+
 import java.util.regex.*;
+
 import lombok.NonNull;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
@@ -125,8 +127,8 @@ public class LineBotController {
                 + "." + ext;
         Path tempFile = Application.downloadedContentDir.resolve(fileName);
         tempFile.toFile().deleteOnExit();
-        return new DownloadedContent(tempFile,createUri("/downloaded/" + tempFile.getFileName()));
-        }
+        return new DownloadedContent(tempFile, createUri("/downloaded/" + tempFile.getFileName()));
+    }
 
     private static String createUri(String path) {
         return ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -141,12 +143,8 @@ public class LineBotController {
 
     private void handleTextContent(String replyToken, Event event, TextMessageContent content) {
         String text = content.getText();
-        String pattern = "(@N;)(.*)(@END)";
-        Pattern r = Pattern.compile(pattern);
-        Matcher m = r.matcher(text);
-        int con = 1;
-        if(m.find()){
-            if(m.group(1)=="@N;" && con == 1){
+        switch (text) {     // เมื่อมีคีเวริดร์ว่า Profile ให้แสดงตามนี้
+            case "@N;": {
                 String userId = event.getSource().getUserId();
                 if (userId != null) {
                     lineMessagingClient.getProfile(userId)
@@ -161,10 +159,9 @@ public class LineBotController {
                                 ));
                             });
                 }
-                con = 2;
-
+                break;
             }
-            else if(m.group(3)=="@END" && con == 2){
+            case "@END": {
                 String userId = event.getSource().getUserId();
                 if (userId != null) {
                     lineMessagingClient.getProfile(userId)
@@ -179,76 +176,10 @@ public class LineBotController {
                                 ));
                             });
                 }
-                con = 1;
+                break;
             }
-            else if (con == 2){
-                this.reply(replyToken, Arrays.asList(
-                        new TextMessage(".....")
-                ));
-            }
+            default:
         }
-
-
-
-
-
-
-
-
-        /*if(m.find()){
-            switch (m.group()) {     // เมื่อมีคีเวริดร์ว่า Profile ให้แสดงตามนี้
-                case "@N;":{
-                    String userId = event.getSource().getUserId();
-                    if (userId != null) {
-                        lineMessagingClient.getProfile(userId)
-                                .whenComplete((profile, throwable) -> {
-                                    if (throwable != null) {
-                                        this.replyText(replyToken, throwable.getMessage());
-                                        return;
-                                    }
-                                    this.reply(replyToken, Arrays.asList(
-                                            new TextMessage("สวัสดีคับคุณ : "),
-                                            new TextMessage("อากาศวันนี้เย็นสบาย")
-                                    ));
-                                });
-                    }
-                    break;
-                }
-                case "@END":{
-                    String userId = event.getSource().getUserId();
-                    if (userId != null) {
-                        lineMessagingClient.getProfile(userId)
-                                .whenComplete((profile, throwable) -> {
-                                    if (throwable != null) {
-                                        this.replyText(replyToken, throwable.getMessage());
-                                        return;
-                                    }
-                                    this.reply(replyToken, Arrays.asList(
-                                            new TextMessage("ระบบได้ทำการเก็บข้อมูลแล้วสามารถดูความเคลื่อนไหวได้ที่ www."),
-                                            new TextMessage("เลขยืนยัน E10420244")
-                                    ));
-                                });
-                    }
-                    break;
-                }
-                default:
-            }
-        }else {
-            String userId = event.getSource().getUserId();
-            if (userId != null) {
-                lineMessagingClient.getProfile(userId)
-                        .whenComplete((profile, throwable) -> {
-                            if (throwable != null) {
-                                this.replyText(replyToken, throwable.getMessage());
-                                return;
-                            }
-                            this.reply(replyToken, Arrays.asList(
-                                    new TextMessage("แจ้งปัญหากรุณาใส่ชื่อผู้รับผิดชอบ เช่น "),
-                                    new TextMessage("@N; แก้ไขเรื่อง")
-                            ));
-                        });
-            }*/
-        //}
     }
 
     private void replyText(@NonNull String replyToken, @NonNull String message) {
