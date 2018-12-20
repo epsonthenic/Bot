@@ -4,8 +4,10 @@ import com.linecorp.bot.client.LineMessagingClient;
 import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.event.Event;
 import com.linecorp.bot.model.event.MessageEvent;
+import com.linecorp.bot.model.event.message.LocationMessageContent;
 import com.linecorp.bot.model.event.message.StickerMessageContent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
+import com.linecorp.bot.model.message.LocationMessage;
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.StickerMessage;
 import com.linecorp.bot.model.message.TextMessage;
@@ -35,12 +37,24 @@ public class LineBotController {
         handleTextContent(event.getReplyToken(), event, message);
     }
 
-    @EventMapping
+    @EventMapping //ส่งสติกเกอร์ ส่งกลับเป็นสติกเกอร์
     public void handleStickerMessage(MessageEvent<StickerMessageContent> event) {
         log.info(event.toString());
         StickerMessageContent message = event.getMessage();
         reply(event.getReplyToken(), new StickerMessage(
                 message.getPackageId(), message.getStickerId()
+        ));
+    }
+
+    @EventMapping
+    public void handleLocationMessage(MessageEvent<LocationMessageContent> event) {
+        log.info(event.toString());
+        LocationMessageContent message = event.getMessage();
+        reply(event.getReplyToken(), new LocationMessage(
+                (message.getTitle() == null) ? "Location replied" : message.getTitle(),
+                message.getAddress(),
+                message.getLatitude(),
+                message.getLongitude()
         ));
     }
 
