@@ -183,26 +183,11 @@ public class LineBotController {
             }
             else if (con == 2){
                 this.reply(replyToken, Arrays.asList(
-                        new TextMessage("...")
+                        new TextMessage(".....")
                 ));
             }
-        }else {
-            String userId = event.getSource().getUserId();
-            if (userId != null) {
-                lineMessagingClient.getProfile(userId)
-                        .whenComplete((profile, throwable) -> {
-                            if (throwable != null) {
-                                this.replyText(replyToken, throwable.getMessage());
-                                return;
-                            }
-                            this.reply(replyToken, Arrays.asList(
-                                    new TextMessage("แจ้งปัญหากรุณาใส่ชื่อผู้รับผิดชอบ เช่น "),
-                                    new TextMessage("@N; แก้ไขเรื่อง")
-                            ));
-                        });
-            }
         }
-            
+
 
 
 
