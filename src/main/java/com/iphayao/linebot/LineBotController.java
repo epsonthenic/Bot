@@ -58,6 +58,9 @@ public class LineBotController {
             ));
         }else if (s == 1){
             handleTextContent2(event.getReplyToken(), event, message);
+            this.reply(event.getReplyToken(), Arrays.asList(
+                    new TextMessage(" " +s)
+            ));
         }
     }//พิมอะไรมาตอบคำเดิม------------------------
 
@@ -226,7 +229,7 @@ public class LineBotController {
                                 ));
                             });
                 }
-                s = 2;
+                s = 0;
                 break;
             }
             default:
