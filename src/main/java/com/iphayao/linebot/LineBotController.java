@@ -48,8 +48,14 @@ public class LineBotController {
         TextMessageContent message = event.getMessage();
         if (s == 0){
             handleTextContent(event.getReplyToken(), event, message);
+            this.reply(event.getReplyToken(), Arrays.asList(
+                    new TextMessage(" " +s)
+            ));
         }else if (s == 2){
             handleTextContent1(event.getReplyToken(), event, message);
+            this.reply(event.getReplyToken(), Arrays.asList(
+                    new TextMessage(" " +s)
+            ));
         }else if (s == 1){
             handleTextContent2(event.getReplyToken(), event, message);
         }
