@@ -38,8 +38,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/iphayao/linebot/LineBotController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="278">
-              <caret line="162" column="31" lean-forward="true" selection-start-line="162" selection-start-column="31" selection-end-line="162" selection-end-column="31" />
+            <state relative-caret-position="413">
+              <caret line="224" column="20" lean-forward="true" selection-start-line="224" selection-start-column="20" selection-end-line="224" selection-end-column="20" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#handleStickerMessage#0;class#LineBotController#0" />
@@ -48,6 +48,8 @@
                 <element signature="method#saveContent#0;class#LineBotController#0" />
                 <element signature="method#createUri#0;class#LineBotController#0" />
                 <element signature="class#DownloadedContent#0;class#LineBotController#0" />
+                <element signature="method#handleTextContent#0;class#LineBotController#0" />
+                <element signature="method#handleTextContent#1;class#LineBotController#0" />
                 <element signature="method#replyText#0;class#LineBotController#0" />
                 <element signature="method#reply#0;class#LineBotController#0" />
                 <element signature="method#reply#1;class#LineBotController#0" />
@@ -171,7 +173,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545302576742" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545303366425" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -221,12 +223,12 @@
       <workItem from="1545230549707" duration="742000" />
       <workItem from="1545233203719" duration="3115000" />
       <workItem from="1545269737895" duration="1827000" />
-      <workItem from="1545271731801" duration="22735000" />
+      <workItem from="1545271731801" duration="23526000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28419000" />
+    <option name="totallyTimeSpent" value="29210000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="41" y="-4" width="1325" height="772" extended-state="6" />
@@ -308,8 +310,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/iphayao/linebot/LineBotController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="162" column="31" lean-forward="true" selection-start-line="162" selection-start-column="31" selection-end-line="162" selection-end-column="31" />
+        <state relative-caret-position="413">
+          <caret line="224" column="20" lean-forward="true" selection-start-line="224" selection-start-column="20" selection-end-line="224" selection-end-column="20" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#handleStickerMessage#0;class#LineBotController#0" />
@@ -318,6 +320,8 @@
             <element signature="method#saveContent#0;class#LineBotController#0" />
             <element signature="method#createUri#0;class#LineBotController#0" />
             <element signature="class#DownloadedContent#0;class#LineBotController#0" />
+            <element signature="method#handleTextContent#0;class#LineBotController#0" />
+            <element signature="method#handleTextContent#1;class#LineBotController#0" />
             <element signature="method#replyText#0;class#LineBotController#0" />
             <element signature="method#reply#0;class#LineBotController#0" />
             <element signature="method#reply#1;class#LineBotController#0" />

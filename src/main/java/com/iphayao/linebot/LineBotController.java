@@ -38,14 +38,21 @@ import java.util.concurrent.ExecutionException;
 @Slf4j
 @LineMessageHandler
 public class LineBotController {
+    public int s;
     @Autowired
     private LineMessagingClient lineMessagingClient;
 
     @EventMapping //พิมอะไรมาตอบคำเดิม
     public void handleTextMessage(MessageEvent<TextMessageContent> event) {
+        s = 0;
         TextMessageContent message = event.getMessage();
-
-        handleTextContent(event.getReplyToken(), event, message);
+        if (s == 0){
+            handleTextContent(event.getReplyToken(), event, message);
+        }else if (s == 2){
+            handleTextContent1(event.getReplyToken(), event, message);
+        }else if (s == 1){
+            handleTextContent2(event.getReplyToken(), event, message);
+        }
     }//พิมอะไรมาตอบคำเดิม------------------------
 
     @EventMapping //ส่งสติกเกอร์ ส่งกลับเป็นสติกเกอร์
@@ -144,11 +151,10 @@ public class LineBotController {
     private void handleTextContent(String replyToken, Event event, TextMessageContent content) {
         String text = content.getText();
         String text1 = content.getText();
-        boolean T = true;
         switch (text) {     // เมื่อมีคีเวริดร์ว่า Profile ให้แสดงตามนี้
             case "@N;": {
                 String userId = event.getSource().getUserId();
-                if (userId != null && T == true) {
+                if (userId != null) {
                     lineMessagingClient.getProfile(userId)
                             .whenComplete((profile, throwable) -> {
                                 if (throwable != null) {
@@ -160,16 +166,19 @@ public class LineBotController {
                                         new TextMessage("อากาศวันนี้เย็นสบาย")
                                 ));
                             });
-                    T = false;
-                }else if(T == false){
-                    if (userId != null) {
-                        this.reply(replyToken, Arrays.asList(
-                                new TextMessage(".........")
-                        ));
-                    }
-                }
+                }s = 0;
                 break;
             }
+            default:
+                this.reply(replyToken, Arrays.asList(
+                    new TextMessage("ทำใหม่")
+            ));
+        }
+    }
+    private void handleTextContent1(String replyToken, Event event, TextMessageContent content) {
+        String text = content.getText();
+        String text1 = content.getText();
+        switch (text) {     // เมื่อมีคีเวริดร์ว่า Profile ให้แสดงตามนี้
             case "@END": {
                 String userId = event.getSource().getUserId();
                 if (userId != null) {
@@ -184,13 +193,42 @@ public class LineBotController {
                                         new TextMessage("เลขยืนยัน E10420244")
                                 ));
                             });
-                    T = true;
                 }
+                s = 0;
                 break;
             }
             default:
         }
     }
+    private void handleTextContent2(String replyToken, Event event, TextMessageContent content) {
+        String text = content.getText();
+        String text1 = content.getText();
+        switch (text) {     // เมื่อมีคีเวริดร์ว่า Profile ให้แสดงตามนี้
+            case "@END": {
+                String userId = event.getSource().getUserId();
+                if (userId != null) {
+                    lineMessagingClient.getProfile(userId)
+                            .whenComplete((profile, throwable) -> {
+                                if (throwable != null) {
+                                    this.replyText(replyToken, throwable.getMessage());
+                                    return;
+                                }
+                                this.reply(replyToken, Arrays.asList(
+                                        new TextMessage("ระบบได้ทำการเก็บข้อมูลแล้วสามารถดูความเคลื่อนไหวได้ที่ www."),
+                                        new TextMessage("เลขยืนยัน E10420244")
+                                ));
+                            });
+                }
+                s = 2;
+                break;
+            }
+            default:
+                this.reply(replyToken, Arrays.asList(
+                        new TextMessage(".....")
+                ));
+        }
+    }
+
 
     private void replyText(@NonNull String replyToken, @NonNull String message) {
         if (replyToken.isEmpty()) {
