@@ -14,7 +14,7 @@ public class Application {
     public static Path downloadedContentDir;
 
     public static void main(String[] args) throws IOException {
-        downloadedContentDir = Files.createTempDirectory("line-bot");
+        downloadedContentDir = Files.createTempDirectory("line-bot");// รับส่งรูปภาพ------------------------
         SpringApplication.run(Application.class, args);
     }
 }

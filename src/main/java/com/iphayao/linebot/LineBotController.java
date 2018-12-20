@@ -44,7 +44,7 @@ public class LineBotController {
         log.info(event.toString());
         TextMessageContent message = event.getMessage();
         handleTextContent(event.getReplyToken(), event, message);
-    }
+    }//พิมอะไรมาตอบคำเดิม------------------------
 
     @EventMapping //ส่งสติกเกอร์ ส่งกลับเป็นสติกเกอร์
     public void handleStickerMessage(MessageEvent<StickerMessageContent> event) {
@@ -53,7 +53,7 @@ public class LineBotController {
         reply(event.getReplyToken(), new StickerMessage(
                 message.getPackageId(), message.getStickerId()
         ));
-    }
+    }//ส่งสติกเกอร์ ส่งกลับเป็นสติกเกอร์------------------------
 
     @EventMapping // ส่งโลเคชั้น บนแผนที่ กลับเป็นโลเคชั้น
     public void handleLocationMessage(MessageEvent<LocationMessageContent> event) {
@@ -65,9 +65,9 @@ public class LineBotController {
                 message.getLatitude(),
                 message.getLongitude()
         ));
-    }
+    }// ส่งโลเคชั้น บนแผนที่ กลับเป็นโลเคชั้น------------------------
 
-    @EventMapping
+    @EventMapping // รับส่งรูปภาพ
     public void handleImageMessage(MessageEvent<ImageMessageContent> event) {
         log.info(event.toString());
         ImageMessageContent content = event.getMessage();
@@ -125,10 +125,8 @@ public class LineBotController {
                 + "." + ext;
         Path tempFile = Application.downloadedContentDir.resolve(fileName);
         tempFile.toFile().deleteOnExit();
-        return new DownloadedContent(tempFile,
-                createUri("/downloaded/" + tempFile.getFileName()));
-
-    }
+        return new DownloadedContent(tempFile,createUri("/downloaded/" + tempFile.getFileName()));
+        }
 
     private static String createUri(String path) {
         return ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -139,23 +137,11 @@ public class LineBotController {
     public static class DownloadedContent {
         Path path;
         String uri;
-    }
-
-
-
-
-
-
-
-
-
-
+    }// รับส่งรูปภาพ------------------------
 
     private void handleTextContent(String replyToken, Event event,
                                    TextMessageContent content) {
         String text = content.getText();
-
-        log.info("Got text message from %s : %s", replyToken, text);
 
         switch (text) {     // เมื่อมีคีเวริดร์ว่า Profile ให้แสดงตามนี้
             case "Profile": {
@@ -174,6 +160,23 @@ public class LineBotController {
                                                 profile.getStatusMessage()),
                                         new TextMessage("User ID: " +
                                                 profile.getUserId())
+                                ));
+                            });
+                }
+                break;
+            }
+            case "สวัสดี": {
+                String userId = event.getSource().getUserId();
+                if (userId != null) {
+                    lineMessagingClient.getProfile(userId)
+                            .whenComplete((profile, throwable) -> {
+                                if (throwable != null) {
+                                    this.replyText(replyToken, throwable.getMessage());
+                                    return;
+                                }
+                                this.reply(replyToken, Arrays.asList(
+                                        new TextMessage("สวัสดีคับคุณ : "),
+                                        new TextMessage("อากาศวันนี้เย็นสบาย")
                                 ));
                             });
                 }
