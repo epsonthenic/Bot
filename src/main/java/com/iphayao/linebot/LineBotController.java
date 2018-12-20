@@ -160,7 +160,8 @@ public class LineBotController {
                                         new TextMessage("อากาศวันนี้เย็นสบาย")
                                 ));
                             });
-                }else if(T == true){
+                    T == false
+                }else if(T == false){
                     if (userId != null) {
                         this.reply(replyToken, Arrays.asList(
                                 new TextMessage(".........")
@@ -171,7 +172,7 @@ public class LineBotController {
             }
             case "@END": {
                 String userId = event.getSource().getUserId();
-                if (userId != null && T == false) {
+                if (userId != null) {
                     lineMessagingClient.getProfile(userId)
                             .whenComplete((profile, throwable) -> {
                                 if (throwable != null) {
