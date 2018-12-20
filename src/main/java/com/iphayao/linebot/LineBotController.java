@@ -166,7 +166,8 @@ public class LineBotController {
                                         new TextMessage("อากาศวันนี้เย็นสบาย")
                                 ));
                             });
-                }s = 0;
+                }
+                s = 1;
                 break;
             }
             default:
