@@ -171,8 +171,7 @@ public class LineBotController {
                     }
                     break;
                 }
-
-                case "@N;": {
+                case "@N;": { // ยังไม่เสร็จต่อด้วยเงื่อนไขการเก็บข้อมูล
                     String userId = event.getSource().getUserId();
                     if (userId != null) {
                         lineMessagingClient.getProfile(userId)
@@ -189,26 +188,30 @@ public class LineBotController {
                                 });
                     }
                     break;
-                }
+                }// ยังไม่เสร็จต่อด้วยเงื่อนไขการเก็บข้อมูล ---------------------------------
+                case "NOE": { // ยังไม่เสร็จต่อด้วยเงื่อนไขการเก็บข้อมูล
+                    String userId = event.getSource().getUserId();
+                    if (userId != null) {
+                        lineMessagingClient.getProfile(userId)
+                                .whenComplete((profile, throwable) -> {
+                                    if (throwable != null) {
+                                        this.replyText(replyToken, throwable.getMessage());
+                                        return;
+                                    }
+                                    this.reply(replyToken, Arrays.asList(
+                                            new TextMessage("กรุณาบอกชื่อบุคคลเช่น"),
+                                            new TextMessage("@N; แก้ไขเรื่อง")
+                                    ));
+                                });
+                    }
+                    break;
+                }// ยังไม่เสร็จต่อด้วยเงื่อนไขการเก็บข้อมูล ---------------------------------
                 default:
                     log.info("Return echo message %s : %s", replyToken, text);
                     this.replyText(replyToken, text);
             }
         } else {
-            String userId = event.getSource().getUserId();
-            if (userId != null) {
-                lineMessagingClient.getProfile(userId)
-                        .whenComplete((profile, throwable) -> {
-                            if (throwable != null) {
-                                this.replyText(replyToken, throwable.getMessage());
-                                return;
-                            }
-                            this.reply(replyToken, Arrays.asList(
-                                    new TextMessage("กรุณาบอกชื่อบุคคลเช่น"),
-                                    new TextMessage("@N; แก้ไขเรื่อง")
-                            ));
-                        });
-            }
+            this.replyText(replyToken, text);
         }
     }
 
