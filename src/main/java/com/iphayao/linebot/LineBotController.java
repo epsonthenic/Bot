@@ -142,53 +142,112 @@ public class LineBotController {
 
     private void handleTextContent(String replyToken, Event event, TextMessageContent content) {
         String text = content.getText();
-        boolean hasText = text.contains("@N");
+        boolean hasText = text.contains("@N;");
         boolean hasText1 = text.contains("เรื่อง");
         boolean hasText2 = text.contains("ต่อ");
         boolean hasText3 = text.contains("@END");
+        boolean hasText4 = text.contains("Profile");
         String userId = event.getSource().getUserId();
 
         if(hasText == true){
-            lineMessagingClient.getProfile(userId)
-                    .whenComplete((profile, throwable) -> {
-                        if (throwable != null) {
-                            this.replyText(replyToken, throwable.getMessage());
-                            return;
-                        }
-                        this.reply(replyToken, Arrays.asList(
-                                new TextMessage("เป็นโปรแกรมรับเรื่องอัตโนมัติ"),
-                                new TextMessage("กรุณาแจ้งเรื่องพิม เรื่อง")
-                        ));
-                    });
+            if(userId != null) {
+                lineMessagingClient.getProfile(userId)
+                        .whenComplete((profile, throwable) -> {
+                            if (throwable != null) {
+                                this.replyText(replyToken, throwable.getMessage());
+                                return;
+                            }
+                            this.reply(replyToken, Arrays.asList(
+                                    new TextMessage("เป็นโปรแกรมรับเรื่องอัตโนมัติ"),
+                                    new TextMessage("กรุณาแจ้งเรื่องพิม เรื่อง")
+                            ));
+                        });
+            }
         }else if (hasText1 == true || hasText2 == true){
-            lineMessagingClient.getProfile(userId)
-                    .whenComplete((profile, throwable) -> {
-                        if (throwable != null) {
-                            this.replyText(replyToken, throwable.getMessage());
-                            return;
-                        }
-                        this.reply(replyToken, Arrays.asList(
-                                new TextMessage("ถ้ายังไม่จบพิม ต่อ"),
-                                new TextMessage("ถ้าจบแล้วพิม @END")
-                        ));
-                    });
+            if(userId != null) {
+                lineMessagingClient.getProfile(userId)
+                        .whenComplete((profile, throwable) -> {
+                            if (throwable != null) {
+                                this.replyText(replyToken, throwable.getMessage());
+                                return;
+                            }
+                            this.reply(replyToken, Arrays.asList(
+                                    new TextMessage("ถ้ายังไม่จบพิม ต่อ"),
+                                    new TextMessage("ถ้าจบแล้วพิม @END")
+                            ));
+                        });
+            }
         }else if (hasText3 == true){
-            lineMessagingClient.getProfile(userId)
-                    .whenComplete((profile, throwable) -> {
-                        if (throwable != null) {
-                            this.replyText(replyToken, throwable.getMessage());
-                            return;
-                        }
-                        this.reply(replyToken, Arrays.asList(
-                                new TextMessage("ระบบได้ทำการบัญทึกข้อมูลแล้ว"),
-                                new TextMessage("เลขยืนยัน E1024402")
-                        ));
-                    });
+            if(userId != null) {
+                lineMessagingClient.getProfile(userId)
+                        .whenComplete((profile, throwable) -> {
+                            if (throwable != null) {
+                                this.replyText(replyToken, throwable.getMessage());
+                                return;
+                            }
+                            this.reply(replyToken, Arrays.asList(
+                                    new TextMessage("ระบบได้ทำการบัญทึกข้อมูลแล้ว"),
+                                    new TextMessage("เลขยืนยัน E1024402")
+                            ));
+                        });
+            }
+        }else if (hasText4 == true){
+            if(userId != null) {
+                lineMessagingClient.getProfile(userId)
+                        .whenComplete((profile, throwable) -> {
+                            if(throwable != null) {
+                                this.replyText(replyToken, throwable.getMessage());
+                                return;
+                            }
+                            this.reply(replyToken, Arrays.asList(
+                                    new TextMessage("Display name: " +
+                                            profile.getDisplayName()),
+                                    new TextMessage("Status message: " +
+                                            profile.getStatusMessage()),
+                                    new TextMessage("User ID: " +
+                                            profile.getUserId())
+                            ));
+                        });
+            }
         }
         else{
             this.reply(replyToken, Arrays.asList(
                     new TextMessage("กรุณาแจ้งผู้รับผิดชอบตัวอย่าง @N")
             ));
+        }
+    }
+
+    private void handleTextContent1(String replyToken, Event event,
+                                   TextMessageContent content) {
+        String text = content.getText();
+
+        log.info("Got text message from %s : %s", replyToken, text);
+
+        switch (text) {
+            case "Profile": {
+                String userId = event.getSource().getUserId();
+                if(userId != null) {
+                    lineMessagingClient.getProfile(userId)
+                            .whenComplete((profile, throwable) -> {
+                                if(throwable != null) {
+                                    this.replyText(replyToken, throwable.getMessage());
+                                    return;
+                                }
+                                this.reply(replyToken, Arrays.asList(
+                                        new TextMessage("Display name: " +
+                                                        profile.getDisplayName()),
+                                        new TextMessage("Status message: " +
+                                                        profile.getStatusMessage()),
+                                        new TextMessage("User ID: " +
+                                                        profile.getUserId())
+                                ));
+                            });
+                }
+                break;
+            }
+            default:
+                log.info("Return echo message %s : %s", replyToken, text);
+                this.replyText(replyToken, text);
         }
     }
 
