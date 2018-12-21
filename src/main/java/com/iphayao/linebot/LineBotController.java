@@ -142,9 +142,9 @@ public class LineBotController {
 
     private void handleTextContent(String replyToken, Event event, TextMessageContent content) {
         String text = content.getText();
-        boolean hasText = text.contains("@N;");
-        boolean hasText1 = text.contains(":เรื่อง");
-        boolean hasText2 = text.contains(":ต่อ");
+        boolean hasText = text.contains("@N");
+        boolean hasText1 = text.contains("เรื่อง");
+        boolean hasText2 = text.contains("ต่อ");
         boolean hasText3 = text.contains("@END");
         String userId = event.getSource().getUserId();
 
@@ -156,7 +156,8 @@ public class LineBotController {
                             return;
                         }
                         this.reply(replyToken, Arrays.asList(
-                                new TextMessage("กรุณาแจ้งเรื่องพิม :เรื่อง")
+                                new TextMessage("เป็นโปรแกรมรับเรื่องอัตโนมัติ"),
+                                new TextMessage("กรุณาแจ้งเรื่องพิม เรื่อง")
                         ));
                     });
         }else if (hasText1 == true || hasText2 == true){
@@ -167,7 +168,7 @@ public class LineBotController {
                             return;
                         }
                         this.reply(replyToken, Arrays.asList(
-                                new TextMessage("ถ้ายังไม่จบพิม :ต่อ"),
+                                new TextMessage("ถ้ายังไม่จบพิม ต่อ"),
                                 new TextMessage("ถ้าจบแล้วพิม @END")
                         ));
                     });
@@ -186,8 +187,7 @@ public class LineBotController {
         }
         else{
             this.reply(replyToken, Arrays.asList(
-                    new TextMessage("กรุณาแจ้งผู้รับผิดชอบตัวอย่าง"),
-                    new TextMessage("@N;")
+                    new TextMessage("กรุณาแจ้งผู้รับผิดชอบตัวอย่าง @N")
             ));
         }
 
