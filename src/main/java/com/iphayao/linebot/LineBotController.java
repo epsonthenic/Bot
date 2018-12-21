@@ -38,30 +38,13 @@ import java.util.concurrent.ExecutionException;
 @Slf4j
 @LineMessageHandler
 public class LineBotController {
-    public int s;
     @Autowired
     private LineMessagingClient lineMessagingClient;
 
     @EventMapping //พิมอะไรมาตอบคำเดิม
     public void handleTextMessage(MessageEvent<TextMessageContent> event) {
-        s = 0;
         TextMessageContent message = event.getMessage();
-        if (s == 0){
-            handleTextContent(event.getReplyToken(), event, message);
-            this.reply(event.getReplyToken(), Arrays.asList(
-                    new TextMessage(" " +s)
-            ));
-        }else if (s == 2){
-            handleTextContent1(event.getReplyToken(), event, message);
-            this.reply(event.getReplyToken(), Arrays.asList(
-                    new TextMessage(" " +s)
-            ));
-        }else if (s == 1){
-            handleTextContent2(event.getReplyToken(), event, message);
-            this.reply(event.getReplyToken(), Arrays.asList(
-                    new TextMessage(" " +s)
-            ));
-        }
+        handleTextContent(event.getReplyToken(), event, message);
     }//พิมอะไรมาตอบคำเดิม------------------------
 
     @EventMapping //ส่งสติกเกอร์ ส่งกลับเป็นสติกเกอร์
@@ -159,8 +142,56 @@ public class LineBotController {
 
     private void handleTextContent(String replyToken, Event event, TextMessageContent content) {
         String text = content.getText();
-        String text1 = content.getText();
-        switch (text) {     // เมื่อมีคีเวริดร์ว่า Profile ให้แสดงตามนี้
+        boolean hasText = text.contains("@N;");
+        boolean hasText1 = text.contains(":เรื่อง");
+        boolean hasText2 = text.contains(":ต่อ");
+        boolean hasText3 = text.contains("@END");
+        String userId = event.getSource().getUserId();
+
+        if(hasText == true){
+            lineMessagingClient.getProfile(userId)
+                    .whenComplete((profile, throwable) -> {
+                        if (throwable != null) {
+                            this.replyText(replyToken, throwable.getMessage());
+                            return;
+                        }
+                        this.reply(replyToken, Arrays.asList(
+                                new TextMessage("กรุณาแจ้งเรื่องพิม :เรื่อง")
+                        ));
+                    });
+        }else if (hasText1 == true || hasText2 == true){
+            lineMessagingClient.getProfile(userId)
+                    .whenComplete((profile, throwable) -> {
+                        if (throwable != null) {
+                            this.replyText(replyToken, throwable.getMessage());
+                            return;
+                        }
+                        this.reply(replyToken, Arrays.asList(
+                                new TextMessage("ถ้ายังไม่จบพิม :ต่อ"),
+                                new TextMessage("ถ้าจบแล้วพิม @END")
+                        ));
+                    });
+        }else if (hasText3 == true){
+            lineMessagingClient.getProfile(userId)
+                    .whenComplete((profile, throwable) -> {
+                        if (throwable != null) {
+                            this.replyText(replyToken, throwable.getMessage());
+                            return;
+                        }
+                        this.reply(replyToken, Arrays.asList(
+                                new TextMessage("ระบบได้ทำการบัญทึกข้อมูลแล้ว"),
+                                new TextMessage("เลขยืนยัน E1024402")
+                        ));
+                    });
+        }
+        else{
+            this.reply(replyToken, Arrays.asList(
+                    new TextMessage("กรุณาแจ้งผู้รับผิดชอบตัวอย่าง"),
+                    new TextMessage("@N;")
+            ));
+        }
+
+        /*switch (text) {     // เมื่อมีคีเวริดร์ว่า Profile ให้แสดงตามนี้
             case "@N;": {
                 String userId = event.getSource().getUserId();
                 if (userId != null) {
@@ -176,69 +207,14 @@ public class LineBotController {
                                 ));
                             });
                 }
-                s = 1;
                 break;
             }
             default:
                 this.reply(replyToken, Arrays.asList(
                     new TextMessage("ทำใหม่")
             ));
-        }
+        }*/
     }
-    private void handleTextContent1(String replyToken, Event event, TextMessageContent content) {
-        String text = content.getText();
-        String text1 = content.getText();
-        switch (text) {     // เมื่อมีคีเวริดร์ว่า Profile ให้แสดงตามนี้
-            case "@END": {
-                String userId = event.getSource().getUserId();
-                if (userId != null) {
-                    lineMessagingClient.getProfile(userId)
-                            .whenComplete((profile, throwable) -> {
-                                if (throwable != null) {
-                                    this.replyText(replyToken, throwable.getMessage());
-                                    return;
-                                }
-                                this.reply(replyToken, Arrays.asList(
-                                        new TextMessage("ระบบได้ทำการเก็บข้อมูลแล้วสามารถดูความเคลื่อนไหวได้ที่ www."),
-                                        new TextMessage("เลขยืนยัน E10420244")
-                                ));
-                            });
-                }
-                s = 0;
-                break;
-            }
-            default:
-        }
-    }
-    private void handleTextContent2(String replyToken, Event event, TextMessageContent content) {
-        String text = content.getText();
-        String text1 = content.getText();
-        switch (text) {     // เมื่อมีคีเวริดร์ว่า Profile ให้แสดงตามนี้
-            case "@END": {
-                String userId = event.getSource().getUserId();
-                if (userId != null) {
-                    lineMessagingClient.getProfile(userId)
-                            .whenComplete((profile, throwable) -> {
-                                if (throwable != null) {
-                                    this.replyText(replyToken, throwable.getMessage());
-                                    return;
-                                }
-                                this.reply(replyToken, Arrays.asList(
-                                        new TextMessage("ระบบได้ทำการเก็บข้อมูลแล้วสามารถดูความเคลื่อนไหวได้ที่ www."),
-                                        new TextMessage("เลขยืนยัน E10420244")
-                                ));
-                            });
-                }
-                s = 0;
-                break;
-            }
-            default:
-                this.reply(replyToken, Arrays.asList(
-                        new TextMessage(".....")
-                ));
-        }
-    }
-
 
     private void replyText(@NonNull String replyToken, @NonNull String message) {
         if (replyToken.isEmpty()) {
