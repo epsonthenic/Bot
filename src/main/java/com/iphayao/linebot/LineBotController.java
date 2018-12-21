@@ -159,6 +159,7 @@ public class LineBotController {
                             }
                             this.reply(replyToken, Arrays.asList(
                                     new TextMessage("เป็นโปรแกรมรับเรื่องอัตโนมัติ"),
+                                    new TextMessage("สวัสดีคับคุณ: "+ profile.getDisplayName()),
                                     new TextMessage("กรุณาแจ้งเรื่องพิม เรื่อง")
                             ));
                         });
@@ -212,7 +213,7 @@ public class LineBotController {
         }
         else{
             this.reply(replyToken, Arrays.asList(
-                    new TextMessage("กรุณาแจ้งผู้รับผิดชอบตัวอย่าง @N")
+                    new TextMessage("กรุณาแจ้งผู้รับผิดชอบตัวอย่าง @N;")
             ));
         }
     }
