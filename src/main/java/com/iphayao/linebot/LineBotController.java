@@ -190,30 +190,6 @@ public class LineBotController {
                     new TextMessage("กรุณาแจ้งผู้รับผิดชอบตัวอย่าง @N")
             ));
         }
-
-        /*switch (text) {     // เมื่อมีคีเวริดร์ว่า Profile ให้แสดงตามนี้
-            case "@N;": {
-                String userId = event.getSource().getUserId();
-                if (userId != null) {
-                    lineMessagingClient.getProfile(userId)
-                            .whenComplete((profile, throwable) -> {
-                                if (throwable != null) {
-                                    this.replyText(replyToken, throwable.getMessage());
-                                    return;
-                                }
-                                this.reply(replyToken, Arrays.asList(
-                                        new TextMessage("สวัสดีคับคุณ : "),
-                                        new TextMessage("อากาศวันนี้เย็นสบาย")
-                                ));
-                            });
-                }
-                break;
-            }
-            default:
-                this.reply(replyToken, Arrays.asList(
-                    new TextMessage("ทำใหม่")
-            ));
-        }*/
     }
 
     private void replyText(@NonNull String replyToken, @NonNull String message) {

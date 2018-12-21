@@ -4,4 +4,24 @@ line:
     channel-token: 'nVnttxex/1rBnxTQL+HdhZy7Ngb1E6FcyXgBDV6BJb/8FC4HeooxB/5C7v6FEYncZbDrVgNGthCjeugCVu7NHEkrzLztnr6Uu8b2zdKbM2+sadHg+8iKry63xDNoPHiEkK4uFs8cn75oLg6LixnczAdB04t89/1O/w1cDnyilFU='
     handler:
       path: /callback
-
+spring:
+  data:
+    rest:
+      default-media-type: application/json;charset=UTF-8
+  messages:
+    encoding: UTF-8
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  servlet:
+    context-path: /DPSEngine
+  port: 8085
