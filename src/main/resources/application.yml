@@ -22,6 +22,3 @@ spring:
 server:
   tomcat:
     uri-encoding: UTF-8
-  servlet:
-    context-path: /DPSEngine
-  port: 8085
