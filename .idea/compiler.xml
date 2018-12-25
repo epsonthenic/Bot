@@ -7,12 +7,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Bot" />
+        <module name="line-bot-spring-boot" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Bot" options="-parameters" />
+      <module name="line-bot-spring-boot" options="-parameters" />
     </option>
   </component>
 </project>
